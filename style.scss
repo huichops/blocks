@@ -1,0 +1,93 @@
+$primaryColor: #333;
+$bgColor: #1abc9c;
+$blockColor: #ecf0f1;
+$dragSize: 200px;
+
+[draggable] {
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Helvetica, Sans;
+}
+
+h1 {
+    font-size: 3em;
+}
+
+h2 {
+    font-size: 1.5em;
+} 
+
+.col {
+    float: left;
+    display: inline-block;
+}
+
+.block-list {
+    @extend .col;
+    width: 25%;
+}
+
+.code {
+    @extend .col;
+    width: 50%;
+    padding-left: 20%;
+}
+.block {
+    -moz-user-select: none;
+    cursor: move;
+    width: $dragSize; 
+    text-align: center;
+    line-height: 70px;
+    color: $bgColor;
+    margin: {
+        bottom: 5px;
+        top: 5px;
+    }
+    h3 {
+        position: relative;
+        top: 40%;
+    }
+
+    background: {
+        color: $blockColor; 
+    }
+}
+
+.empty {
+    opacity: 0.7;
+}
+
+.nesting-1 {
+    margin-left: 50px;
+}
+.over {
+    color: $blockColor;
+    background-color: rgba(22, 160, 133,1.0);
+}
+
+.shadow {
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+}
+
+header {
+    padding: 50px; 
+    color: white;
+    background-color: rgba(22, 160, 133,1.0);
+}
+.container {
+    margin: {
+        left: 25%;
+        right: 25%;
+    }
+    padding: 100px;
+}
+
+body {
+    background: {
+        color: $bgColor;
+    }
+}
+
