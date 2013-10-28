@@ -44,11 +44,14 @@ function handleDrop(e) {
     
     if ( dragSrc != this && !this.classList.contains('source') ) {
         // dragSrc.innerHTML = this.innerHTML;
-        this.classList.remove('empty');
+        
         this.classList.remove('over');
         this.innerHTML = e.dataTransfer.getData('text/html');
-        if ( this.classList.contains('empty') ) {
-            this.parentNode.appendChild(empty);
+	this.setAttribute('draggable', 'true');
+	console.log(this.classList);  
+	if ( this.classList.contains('empty') ) {
+	    this.classList.remove('empty'); 
+	    this.parentNode.appendChild(empty);
         }
     }
     return false;
