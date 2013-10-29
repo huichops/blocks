@@ -1,10 +1,9 @@
 $primaryColor: #333;
 $bgColor: #1abc9c;
 $blockColor: #ecf0f1;
-$dragSize: 200px;
-
-[draggable] {
-}
+$dragSize: 150px;
+$nester: #8e44ad;
+$common: #2980b9;
 
 * {
     margin: 0;
@@ -37,11 +36,14 @@ h2 {
 }
 .block {
     -moz-user-select: none;
+    -webkit-user-select: none;
+    -user-select: none;
     cursor: move;
     width: $dragSize; 
     text-align: center;
-    line-height: 70px;
-    color: $bgColor;
+    line-height: 50px;
+    color: $blockColor;
+    border-radius: 5px;
     margin: {
         bottom: 5px;
         top: 5px;
@@ -51,18 +53,26 @@ h2 {
         top: 40%;
     }
 
-    background: {
-        color: $blockColor; 
-    }
+}
+
+.nester {
+    background-color: #8e44ad;
+}
+
+.common {
+    background-color: $common; 
 }
 
 .empty {
+    border: 2px dashed $blockColor; 
     opacity: 0.7;
 }
 
-.nesting-1 {
+.nested {
     margin-left: 50px;
 }
+
+
 .over {
     color: $blockColor;
     background-color: rgba(22, 160, 133,1.0);
@@ -86,8 +96,6 @@ header {
 }
 
 body {
-    background: {
-        color: $bgColor;
-    }
+    background-color: $bgColor;
 }
 

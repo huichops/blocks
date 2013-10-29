@@ -9,7 +9,7 @@ function handleDragOver(e) {
     if (e.preventDefault) {
         e.preventDefault(); // Necessary. Allows us to drop.
     }
-
+    
     e.dataTransfer.dropEffect = 'move';  
 
     return false;
@@ -30,6 +30,7 @@ function handleDrop(e) {
     }
     var empty = document.createElement('div');
     var content = document.createTextNode('Drag here!');
+    console.log(this);
 
     empty.appendChild(content);
     empty.classList.add('empty');
@@ -41,18 +42,16 @@ function handleDrop(e) {
     empty.addEventListener('drop', handleDrop, false);
     empty.addEventListener('dragend', handleDragEnd, false);
     empty.addEventListener('dragenter', handleDragEnter, false);
-    
+
     if ( dragSrc != this && !this.classList.contains('source') ) {
         // dragSrc.innerHTML = this.innerHTML;
-        
-        this.classList.remove('over');
-        this.innerHTML = e.dataTransfer.getData('text/html');
-	this.setAttribute('draggable', 'true');
-	console.log(this.classList);  
-	if ( this.classList.contains('empty') ) {
-	    this.classList.remove('empty'); 
-	    this.parentNode.appendChild(empty);
+        if ( this.classList.contains('empty') ) {
+            this.parentNode.appendChild(empty);
         }
+        this.className = dragSrc.className;
+        this.classList.remove('source');
+        this.innerHTML = e.dataTransfer.getData('text/html');
+        this.setAttribute('draggable', 'true');
     }
     return false;
 }

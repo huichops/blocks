@@ -2,6 +2,7 @@
 #
 # ### vim ###
 .*.s[a-w][a-z]
+*.swp
 *.un~
 Session.vim
 .netrwhist

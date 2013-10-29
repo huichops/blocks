@@ -22,22 +22,31 @@ h2 {
 
 .block {
   -moz-user-select: none;
+  -webkit-user-select: none;
+  -user-select: none;
   cursor: move;
-  width: 200px;
+  width: 150px;
   text-align: center;
-  line-height: 70px;
-  color: #1abc9c;
+  line-height: 50px;
+  color: #ecf0f1;
+  border-radius: 5px;
   margin-bottom: 5px;
-  margin-top: 5px;
-  background-color: #ecf0f1; }
+  margin-top: 5px; }
   .block h3 {
     position: relative;
     top: 40%; }
 
+.nester {
+  background-color: #8e44ad; }
+
+.common {
+  background-color: #2980b9; }
+
 .empty {
+  border: 2px dashed #ecf0f1;
   opacity: 0.7; }
 
-.nesting-1 {
+.nested {
   margin-left: 50px; }
 
 .over {
