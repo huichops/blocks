@@ -1,4 +1,6 @@
 require './app.rb'
-require 'rack-livereload'
-use Rack::LiveReload
+if ENV['RACK_ENV'] == 'production'
+  require 'rack-livereload'
+  use Rack::LiveReload
+end
 run Sinatra::Application

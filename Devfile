@@ -1,0 +1,3 @@
+server: bundle exec rackup -p 9000 -E development config.ru
+client: bundle exec guard start
+
