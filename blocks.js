@@ -1,3 +1,19 @@
+function insertAfter(referenceNode, newNode) {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+}
+
+function addEvents( node ) {
+
+    node.addEventListener('dragstart', handleDragStart, false);
+    node.addEventListener('dragenter', handleDragEnter, false);
+    node.addEventListener('dragover', handleDragOver, false);
+    node.addEventListener('dragleave', handleDragLeave, false);
+    node.addEventListener('drop', handleDrop, false);
+    node.addEventListener('dragend', handleDragEnd, false);
+    node.addEventListener('dragenter', handleDragEnter, false);
+
+}
+
 function handleDragStart(e) {
     this.style.opacity = '0.6';  // this / e.target is the source node.
     dragSrc = this;
@@ -30,24 +46,30 @@ function handleDrop(e) {
     }
     var empty = document.createElement('div');
     var content = document.createTextNode('Drag here!');
-    console.log(this);
 
     empty.appendChild(content);
     empty.classList.add('empty');
     empty.classList.add('block');
-    empty.addEventListener('dragstart', handleDragStart, false);
-    empty.addEventListener('dragenter', handleDragEnter, false);
-    empty.addEventListener('dragover', handleDragOver, false);
-    empty.addEventListener('dragleave', handleDragLeave, false);
-    empty.addEventListener('drop', handleDrop, false);
-    empty.addEventListener('dragend', handleDragEnd, false);
-    empty.addEventListener('dragenter', handleDragEnter, false);
+    addEvents(empty);
 
     if ( dragSrc != this && !this.classList.contains('source') ) {
         // dragSrc.innerHTML = this.innerHTML;
+        if ( dragSrc.classList.contains('nester') ) {
+            console.log(this);
+            var nester = document.createElement('div');
+            var nestedEmpty = empty.cloneNode(true);
+            addEvents(nestedEmpty);
+           
+            nester.classList.add('nested');
+            nester.appendChild(nestedEmpty);
+            insertAfter(this, nester);
+        }
+
         if ( this.classList.contains('empty') ) {
+
             this.parentNode.appendChild(empty);
         }
+
         this.className = dragSrc.className;
         this.classList.remove('source');
         this.innerHTML = e.dataTransfer.getData('text/html');
@@ -65,12 +87,13 @@ function handleDragEnd(e) {
 
 var blocks = document.querySelectorAll('.block');
 [].forEach.call(blocks, function(block) {
-    block.addEventListener('dragstart', handleDragStart, false);
-    block.addEventListener('dragenter', handleDragEnter, false);
-    block.addEventListener('dragover', handleDragOver, false);
-    block.addEventListener('dragleave', handleDragLeave, false);
-    block.addEventListener('drop', handleDrop, false);
-    block.addEventListener('dragend', handleDragEnd, false);
+    addEvents(block);
+    // block.addEventListener('dragstart', handleDragStart, false);
+    // block.addEventListener('dragenter', handleDragEnter, false);
+    // block.addEventListener('dragover', handleDragOver, false);
+    // block.addEventListener('dragleave', handleDragLeave, false);
+    // block.addEventListener('drop', handleDrop, false);
+    // block.addEventListener('dragend', handleDragEnd, false);
 });
 
 
