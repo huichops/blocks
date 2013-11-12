@@ -96,4 +96,28 @@ var blocks = document.querySelectorAll('.block');
     // block.addEventListener('dragend', handleDragEnd, false);
 });
 
+/* parseo y envio */
+var form = document.compile;
+
+function handleSubmit( e ) {
+    e.preventDefault();
+    var blocksToSend = document.querySelectorAll('.code .nester, .code .common'),
+    data = '',
+    xhReq = new XMLHttpRequest(),
+    serverResponse;
+
+    [].forEach.call(blocksToSend, function(block) {
+       data = data + block.textContent.trim() + '\n'; 
+    });
+
+    xhReq.onreadystatechange = function() {
+        if ( xhReq.readyState == 4 && xhReq.status == 200 ) {
+            console.log(xhReq.responseText);
+        }
+    }
+    xhReq.open("GET", "test", true);
+    xhReq.send();
+}
+
+form.onsubmit = handleSubmit;
 
