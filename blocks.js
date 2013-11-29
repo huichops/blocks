@@ -1,3 +1,37 @@
+function Block( text, pos ) {
+    this.text = document.createTextNode(text),
+    this.elem = document.createElement('div'),
+    this.position = pos;
+
+    this.elem.appendChild(this.text);
+    this.elem.classList.add('block');
+    this.elem.classList.add('common');
+
+    Block.prototype.add = function() {
+        var codeContainer = document.getElementById('code');
+        codeContainer.appendChild(this.elem);
+        this.elem.classList.add('block');
+
+    };
+}
+
+function test() {
+    var blocks = document.querySelectorAll('.block'),
+        lastIndex = 0,
+        answer = true,
+        current;
+
+    [].forEach.call( blocks, function(block) {
+        current = ~~block.dataset.index;
+        console.log( current, lastIndex );
+        if( current < lastIndex ) {
+            answer = false;
+        }
+        lastIndex = current;
+    });
+    return answer;
+}
+
 function insertAfter(referenceNode, newNode) {
     referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 }
@@ -25,7 +59,7 @@ function handleDragOver(e) {
     if (e.preventDefault) {
         e.preventDefault(); // Necessary. Allows us to drop.
     }
-    
+
     e.dataTransfer.dropEffect = 'move';  
 
     return false;
@@ -44,8 +78,9 @@ function handleDrop(e) {
     if( e.stopPropagation ) {
         e.stopPropagation();
     }
-    var empty = document.createElement('div');
-    var content = document.createTextNode('Drag here!');
+    var empty = document.createElement('div'),
+        content = document.createTextNode('Drag here!'),
+        tempIndex = dragSrc.dataset.index;
 
     empty.appendChild(content);
     empty.classList.add('empty');
@@ -53,13 +88,15 @@ function handleDrop(e) {
     addEvents(empty);
 
     if ( dragSrc != this && !this.classList.contains('source') ) {
-        // dragSrc.innerHTML = this.innerHTML;
+        dragSrc.innerHTML = this.innerHTML;
+        dragSrc.dataset.index = this.dataset.index;
+
         if ( dragSrc.classList.contains('nester') ) {
             console.log(this);
             var nester = document.createElement('div');
             var nestedEmpty = empty.cloneNode(true);
             addEvents(nestedEmpty);
-           
+
             nester.classList.add('nested');
             nester.appendChild(nestedEmpty);
             insertAfter(this, nester);
@@ -73,8 +110,12 @@ function handleDrop(e) {
         this.className = dragSrc.className;
         this.classList.remove('source');
         this.innerHTML = e.dataTransfer.getData('text/html');
+        this.dataset.index = tempIndex;
         this.setAttribute('draggable', 'true');
     }
+
+
+
     return false;
 }
 
@@ -88,26 +129,31 @@ function handleDragEnd(e) {
 var blocks = document.querySelectorAll('.block');
 [].forEach.call(blocks, function(block) {
     addEvents(block);
-    // block.addEventListener('dragstart', handleDragStart, false);
-    // block.addEventListener('dragenter', handleDragEnter, false);
-    // block.addEventListener('dragover', handleDragOver, false);
-    // block.addEventListener('dragleave', handleDragLeave, false);
-    // block.addEventListener('drop', handleDrop, false);
-    // block.addEventListener('dragend', handleDragEnd, false);
 });
 
 /* parseo y envio */
 var form = document.compile;
 
 function handleSubmit( e ) {
+    var answer = document.getElementById('answer'); 
+    if( test() ) {
+        answer.innerHTML = 'Correcto!';   
+        answer.classList.remove('incorrect');
+        answer.classList.add('correct');
+    } else {
+        answer.innerHTML = 'Incorrecto!';
+        answer.classList.remove('correct');
+        answer.classList.add('incorrect');
+    }
     e.preventDefault();
+
     var blocksToSend = document.querySelectorAll('.code .nester, .code .common'),
-    data = '',
-    xhReq = new XMLHttpRequest(),
-    serverResponse;
+        data = '',
+        xhReq = new XMLHttpRequest(),
+        serverResponse;
 
     [].forEach.call(blocksToSend, function(block) {
-       data = data + block.textContent.trim() + '\n'; 
+        data = data + block.textContent.trim() + '\n'; 
     });
 
     xhReq.onreadystatechange = function() {
