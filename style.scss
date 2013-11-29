@@ -1,7 +1,7 @@
 $primaryColor: #333;
 $bgColor: #ecf0f1;
 $blockColor: #ecf0f1;
-$dragSize: 150px;
+$dragSize: 250px;
 $nester: #8e44ad;
 $common: #2980b9;
 
@@ -45,8 +45,8 @@ h2 {
     -user-select: none;
     cursor: move;
     width: $dragSize; 
-    text-align: center;
     line-height: 50px;
+    text-indent: 1em;
     color: $blockColor;
     border-radius: 5px;
     margin: {
