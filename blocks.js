@@ -23,7 +23,6 @@ function test() {
 
     [].forEach.call( blocks, function(block) {
         current = ~~block.dataset.index;
-        console.log( current, lastIndex );
         if( current < lastIndex ) {
             answer = false;
         }
@@ -92,7 +91,6 @@ function handleDrop(e) {
         dragSrc.dataset.index = this.dataset.index;
 
         if ( dragSrc.classList.contains('nester') ) {
-            console.log(this);
             var nester = document.createElement('div');
             var nestedEmpty = empty.cloneNode(true);
             addEvents(nestedEmpty);
@@ -135,22 +133,16 @@ var blocks = document.querySelectorAll('.block');
 var form = document.compile;
 
 function handleSubmit( e ) {
-    var answer = document.getElementById('answer'); 
+    var answer = document.getElementById('answer'), 
+        blocksToSend = document.querySelectorAll('.code .nester, .code .common'),
+        data = '',
+        xhReq = new XMLHttpRequest(),
+        serverResponse;
+
     if( test() ) {
         answer.innerHTML = 'Correcto!';   
         answer.classList.remove('incorrect');
         answer.classList.add('correct');
-    } else {
-        answer.innerHTML = 'Incorrecto!';
-        answer.classList.remove('correct');
-        answer.classList.add('incorrect');
-    }
-    e.preventDefault();
-
-    var blocksToSend = document.querySelectorAll('.code .nester, .code .common'),
-        data = '',
-        xhReq = new XMLHttpRequest(),
-        serverResponse;
 
     [].forEach.call(blocksToSend, function(block) {
         data = data + block.textContent.trim() + '\n'; 
@@ -161,8 +153,16 @@ function handleSubmit( e ) {
             console.log(xhReq.responseText);
         }
     }
-    xhReq.open("GET", "test", true);
+    xhReq.open("GET", "test/" + data, true);
     xhReq.send();
+
+    } else {
+        answer.innerHTML = 'Incorrecto!';
+        answer.classList.remove('correct');
+        answer.classList.add('incorrect');
+    }
+    e.preventDefault();
+
 }
 
 form.onsubmit = handleSubmit;
