@@ -9,3 +9,7 @@ Session.vim
 *~
 .tmp
 .sass-cache
+
+# quimor
+*.c
+salida

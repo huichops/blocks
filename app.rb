@@ -12,16 +12,30 @@ helpers do
 end
 
 configure do
-    set :public_folder, '.'
     set :styles_folder, '.'
+    set :public_foler, './public'
+    set :views, './views'
 end
 
 get '/' do
-    send_file File.join(settings.public_folder, 'index.html')
+    erb :index
 end
 
-get '/test/:test' do
-    compila params[:test] 
-    #params[:test]
+get '/ejercicio1' do
+    @action = '/ejercicio1'
+    erb :ejercicio1, :layout => :ejercicio
+end
+
+post '/ejercicio1/:code' do
+    compila params[:code] 
+end
+
+get '/ejercicio2' do
+    @action = '/ejercicio2'
+    erb :ejercicio2, :layout => :ejercicio
+end
+
+post '/ejercicio2/:code' do
+    compila params[:code] 
 end
 

@@ -13,7 +13,14 @@ h1 {
 h2 {
   font-size: 1.5em; }
 
-.col, .block-list, .code {
+h1 a {
+  text-decoration: none;
+  color: white; }
+  h1 a:hover {
+    color: #16a085;
+    background-color: white; }
+
+.col, .block-list, .code, .response {
   float: left;
   display: inline-block; }
 
@@ -21,8 +28,16 @@ h2 {
   width: 25%; }
 
 .code {
-  width: 60%;
+  width: 40%;
   padding: 30px 0; }
+
+.response {
+  color: white;
+  font-size: 3em;
+  width: 50%;
+  height: 200px;
+  padding: 20px;
+  background-color: #16a085; }
 
 .block {
   -moz-user-select: none;

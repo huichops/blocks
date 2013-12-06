@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="style.css">
+<title>Blocks</title>
+</head>
+<body>
+
+<header>
+    <h1><a href="/">CockBlocks</a></h1>
+    <h2>Ordena los bloques</h2>
+</header>
+<div class="container" >
+
+    <div id="answer" class="correct">
+         
+    </div>
+    <div class="code">
+        <%= yield %>
+    </div>
+    <div id="response" class="response">
+        
+    </div>
+
+    <div class="send">
+        <form action="<%= @action %>" name="compile">
+            <input type="submit" value="Probar" />
+        </form>
+    </div>
+</div>
+
+
+<script src="blocks.js"></script>
+
+</body>
+</html>

@@ -133,11 +133,12 @@ var blocks = document.querySelectorAll('.block');
 var form = document.compile;
 
 function handleSubmit( e ) {
+    console.log(this.action);
     var answer = document.getElementById('answer'), 
         blocksToSend = document.querySelectorAll('.code .nester, .code .common'),
+        responseContainer = document.getElementById('response');
         data = '',
-        xhReq = new XMLHttpRequest(),
-        serverResponse;
+        xhReq = new XMLHttpRequest();
 
     if( test() ) {
         answer.innerHTML = 'Correcto!';   
@@ -151,9 +152,10 @@ function handleSubmit( e ) {
     xhReq.onreadystatechange = function() {
         if ( xhReq.readyState == 4 && xhReq.status == 200 ) {
             console.log(xhReq.responseText);
+            responseContainer.innerHTML = xhReq.responseText;
         }
     }
-    xhReq.open("GET", "test/" + data, true);
+    xhReq.open('POST', this.action + '/' + data, true);
     xhReq.send();
 
     } else {
