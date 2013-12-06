@@ -24,6 +24,7 @@ function test() {
     [].forEach.call( blocks, function(block) {
         current = ~~block.dataset.index;
         if( current < lastIndex ) {
+            console.log(current,lastIndex);
             answer = false;
         }
         lastIndex = current;
