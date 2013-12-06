@@ -155,7 +155,7 @@ function handleSubmit( e ) {
             responseContainer.innerHTML = xhReq.responseText;
         }
     }
-    xhReq.open('POST', this.action + '/' + data, true);
+    xhReq.open('POST', this.action + '/' + encodeURIComponent(data), true);
     xhReq.send();
 
     } else {
