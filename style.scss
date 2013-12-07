@@ -2,9 +2,13 @@ $primaryColor: #333;
 $secondaryColor: rgba(22, 160, 133,1.0);
 $bgColor: #ecf0f1;
 $blockColor: #ecf0f1;
-$dragSize: 250px;
+$buttonColor: #27ae60;
+$buttonHover: #2ecc71;
+$dragSize: 450px;
 $nester: #8e44ad;
 $common: #2980b9;
+
+@import url(http://fonts.googleapis.com/css?family=Lato:400,700);
 
 div,
 h1,
@@ -13,23 +17,39 @@ body,
 html {
     margin: 0;
     padding: 0;
-    font-family: Helvetica, Sans;
+    font-family: 'Lato', Helvetica, Sans;
 }
 
 h1 {
-    font-size: 3em;
+    font-size: 3.6em;
 }
 
 h2 {
-    font-size: 1.5em;
+    font-size: 2em;
 } 
+a {
+    text-decoration: none;
+    transition-duration: 0.3s;
+}
 
 h1 a {
-    text-decoration: none;
     color: white;
     &:hover {
         color: $secondaryColor;
         background-color: white;
+    }
+}
+
+input[type=submit] {
+    padding: 10px 20px;
+    font-size: 1.7em;
+    margin-top: 1em;
+    background-color: $buttonColor;
+    color: $blockColor;
+    border: none;
+    transition-duration: 0.3s;
+    &:hover {
+        background-color: $buttonHover;
     }
 }
 
@@ -46,13 +66,12 @@ h1 a {
 .code {
     @extend .col;
     width: 40%;
-    padding: 30px 0;
 }
 
 .response {
     @extend .col;
     color: white;
-    font-size: 3em;
+    font-size: 2em;
     width: 50%;
     height: 200px;
     padding: 20px;
@@ -64,11 +83,12 @@ h1 a {
     -webkit-user-select: none;
     -user-select: none;
     cursor: move;
-    width: $dragSize; 
-    line-height: 50px;
+    max-width: $dragSize; 
+    line-height: 2em;
     text-indent: 1em;
     color: $blockColor;
     border-radius: 5px;
+    font-size: 1.1em;
     margin: {
         bottom: 5px;
         top: 5px;
@@ -113,7 +133,7 @@ h1 a {
 }
 
 header {
-    padding: 50px; 
+    padding: 30px 50px; 
     color: white;
     background-color: $secondaryColor;
 }
@@ -130,7 +150,7 @@ body {
 }
 
 %answer {
-    font-size: 2em;
+    font-size: 3.5em;
     width: 100%;
     padding: 5px 10px;
     &::after {
@@ -146,5 +166,17 @@ body {
 .incorrect {
     @extend %answer;
     color: #e74c3c;
+}
+
+.bigLink {
+    font-size: 1.2em;
+    line-height: 1.5em;
+    border-radius: 5px;
+    color: white;
+    padding: 10px;
+    background-color: $common;
+    &:hover {
+        background-color: $buttonColor;
+    }
 }
 
