@@ -57,3 +57,15 @@ post '/ejercicio4/:code' do
     compila params[:code] 
 end
 
+get '/ejercicio5' do
+    @action = '/ejercicio5'
+    erb :ejercicio5, :layout => :ejercicio
+end
+
+post '/ejercicio5/:code' do
+    compila params[:code] 
+end
+
+
+
+
